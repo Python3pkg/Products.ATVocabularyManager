@@ -107,7 +107,7 @@ class VocabularyLibrary(UniqueObject, OrderedBaseFolder, Cacheable):
 
     security.declareProtected(ModifyPortalContent, 'PUT')
     def PUT(self, ids=[], REQUEST=None):
-        print "PUT in basefolder.py"
+        print("PUT in basefolder.py")
         OrderedBaseFolder.PUT(self, ids, REQUEST)
 
     security.declarePrivate('PUT_factory')

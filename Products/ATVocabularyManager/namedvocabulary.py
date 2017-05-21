@@ -18,7 +18,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.interfaces import IVocabulary
 from Products.Archetypes import atapi
 from Products.ATVocabularyManager.types.tree.vocabulary import TreeVocabulary
-from config import TOOL_NAME
+from .config import TOOL_NAME
 
 
 class NamedVocabulary(object):
@@ -59,7 +59,7 @@ class NamedVocabulary(object):
         else:
             dlist = vocab.getDisplayList(instance)
         if self.empty_first_item:
-            item = self.custom_empty_first_item or [(u'', u'--'), ]
+            item = self.custom_empty_first_item or [('', '--'), ]
             dlist = atapi.DisplayList(item) + dlist
         return dlist
 

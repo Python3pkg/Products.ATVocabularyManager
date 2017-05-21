@@ -59,7 +59,7 @@ class SortedSimpleVocabulary(SimpleVocabulary):
         """
         vdict = self.getVocabularyDict(instance)
         key_values = []
-        for key in vdict.keys():
+        for key in list(vdict.keys()):
             key_values.append((key, vdict[key]))
 
         def cmp_second_term(item1, item2):

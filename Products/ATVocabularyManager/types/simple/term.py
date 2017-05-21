@@ -46,7 +46,7 @@ class SimpleVocabularyTerm(BaseContent):
             default='',
             size=50,
             widget=StringWidget(
-                label=_("label_key", default=u"Key"),
+                label=_("label_key", default="Key"),
                 description=_("help_vocab_name",
                               default="Should not contain spaces, underscores or mixed case."),
             ),
@@ -57,7 +57,7 @@ class SimpleVocabularyTerm(BaseContent):
             default='',
             accessor='Title',
             widget=StringWidget(
-                label=_("label_value", default=u"Value"),
+                label=_("label_value", default="Value"),
             ),
         )
     ))
@@ -108,23 +108,23 @@ class SimpleVocabularyTerm(BaseContent):
         request = REQUEST or self.REQUEST
         values = request.form
 
-        if values.has_key('title'):
+        if 'title' in values:
             orig_title = self.Title()
 
         BaseContent.processForm(self, data, metadata, REQUEST, values)
 
-        if values.has_key('title'):
+        if 'title' in values:
             new_title = values['title']
             vocab = find_toplevel_vocab(self)
             event.notify(TermRenamedEvent(orig_title, new_title, self, vocab))
 
     def update(self, *args, **kwargs):
-        if kwargs.has_key('title'):
+        if 'title' in kwargs:
             orig_title = self.Title()
 
         BaseContent.update(self, *args, **kwargs)
 
-        if kwargs.has_key('title'):
+        if 'title' in kwargs:
             new_title = kwargs['title']
             vocab = find_toplevel_vocab(self)
             event.notify(TermRenamedEvent(orig_title, new_title, self, vocab))

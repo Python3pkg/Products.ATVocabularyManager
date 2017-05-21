@@ -13,7 +13,7 @@ __author__ = 'Jens Klein <jens@bluedynamics.com>'
 __docformat__ = 'plaintext'
 
 import csv
-from StringIO import StringIO
+from io import StringIO
 from zope.interface import implements
 from zope.component import getMultiAdapter
 from zope.component.interfaces import ComponentLookupError
@@ -56,9 +56,9 @@ class SimpleVocabulary(OrderedBaseFolder):
                     default = '',
                     widget = StringWidget(
                         label=_("label_vocab_name",
-                                default=u"Vocabulary Name"),
+                                default="Vocabulary Name"),
                         description=_("help_vocab_name",
-                                      default=u"Should not contain spaces, underscores or mixed case."),
+                                      default="Should not contain spaces, underscores or mixed case."),
                         size=50,
                         ),
                     ),
@@ -70,9 +70,9 @@ class SimpleVocabulary(OrderedBaseFolder):
                   accessor = "Description",
                   storage = MetadataStorage(),
                   widget = TextAreaWidget(label=PMF("label_description",
-                                                    default=u"Description"),
+                                                    default="Description"),
                                           description=PMF("help_description",
-                                                          default=u"Enter a brief description"),
+                                                          default="Enter a brief description"),
                                           rows = 5,
                                           ),
                   ),
@@ -83,9 +83,9 @@ class SimpleVocabulary(OrderedBaseFolder):
                     searchable = 0,
                     widget = SelectionWidget(
                         label = _("label_sort_method",
-                                  default=u"Sort method"),
+                                  default="Sort method"),
                         description = _("help_sort_method",
-                                        default=u"Sort method used for displaying vocabulary terms"),
+                                        default="Sort method used for displaying vocabulary terms"),
                     ),
                     vocabulary = VOCABULARY_SORT_ORDERS,
         ),
@@ -194,7 +194,7 @@ class SimpleVocabulary(OrderedBaseFolder):
         if sortMethod == SORT_METHOD_FOLDER_ORDER:
             try:
                 contentListing = getMultiAdapter(
-                    (context, context.REQUEST), name=u'folderListing')()
+                    (context, context.REQUEST), name='folderListing')()
             except ComponentLookupError:
                 # still Plone 3 compatible
                 contentListing = context.getFolderContents()
@@ -228,7 +228,7 @@ class SimpleVocabulary(OrderedBaseFolder):
             if termtype == DEFAULT_VOCABULARY_ITEM and len(allowed) == 1:
                 termtype = allowed[0].meta_type
             else:
-                raise ValueError, 'type %s is not allowed as vocabularyterm in this context' % termtype
+                raise ValueError('type %s is not allowed as vocabularyterm in this context' % termtype)
 
 
         self.invokeFactory(termtype, key)
@@ -277,7 +277,7 @@ class SimpleVocabulary(OrderedBaseFolder):
                 titlerow = False
 
             else:
-                value = unicode(row[1], IMPORT_ENCODING)
+                value = str(row[1], IMPORT_ENCODING)
                 key = row[0] or make_uuid(value)
                 self.addTerm(key, value, termtype=termtype, silentignore=silentignore)
 

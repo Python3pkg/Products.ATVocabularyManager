@@ -44,12 +44,12 @@ class TestNamedVocabulary(ATVocTestCase):
         dlist = nv1.getDisplayList(self.atvm)
         self.assertEqual(len(dlist), 6)
         # and we have an empty item on top
-        empty_item = (u'', u'--')
-        self.failUnless(empty_item in dlist.items())
-        self.assertEqual(empty_item, dlist.items()[0])
+        empty_item = ('', '--')
+        self.failUnless(empty_item in list(dlist.items()))
+        self.assertEqual(empty_item, list(dlist.items())[0])
 
         # now use a `custom_empty_first_item`
-        custom_item = (u'foo', u'Foo')
+        custom_item = ('foo', 'Foo')
         nv2 = NamedVocabulary(self.vname,
                               empty_first_item=1,
                               custom_empty_first_item=[custom_item])
@@ -61,6 +61,6 @@ class TestNamedVocabulary(ATVocTestCase):
         dlist = nv2.getDisplayList(self.atvm)
         self.assertEqual(len(dlist), 6)
         # and we have an empty item on top
-        self.failUnless(custom_item in dlist.items())
-        self.assertEqual(custom_item, dlist.items()[0])
+        self.failUnless(custom_item in list(dlist.items()))
+        self.assertEqual(custom_item, list(dlist.items())[0])
 #EOF

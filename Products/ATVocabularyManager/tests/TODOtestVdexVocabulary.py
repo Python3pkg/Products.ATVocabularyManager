@@ -2,7 +2,7 @@ import os
 
 from Products.PloneTestCase import PloneTestCase
 from Products.ATVocabularyManager.tests import PACKAGE_HOME
-import common
+from . import common
 
 VOCABTITLE = 'Test Vdex Vocabulary'
 

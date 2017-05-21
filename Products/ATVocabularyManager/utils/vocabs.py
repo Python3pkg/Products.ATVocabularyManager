@@ -6,14 +6,14 @@ from imsvdex.vdex import VDEXManager
 
 def fetchValueByKeyFromVocabularyDict(searchedkey, vdict):
     """recursive find of a key in the vocabulary dictionary tree."""
-    for key in vdict.keys():
+    for key in list(vdict.keys()):
         if key == searchedkey:
-            if vdict[key] in types.StringTypes:
+            if vdict[key] in str:
                 return vdict[key]
             else:
                 return vdict[key][0]
-    for key in vdict.keys():
-        if vdict[key] not in types.StringTypes:
+    for key in list(vdict.keys()):
+        if vdict[key] not in str:
             if not vdict[key][1]:
                 continue
             res = fetchValueByKeyFromVocabularyDict(searchedkey, vdict[key][1])
@@ -27,12 +27,12 @@ def fetchValuePathFromVDict(searchedkey, vdict, path=""):
     (key = uid111, vdict) -> uid1/uid11/uid111
     """
 
-    for key in vdict.keys():
+    for key in list(vdict.keys()):
         newpath = path + '/' + key
         if key == searchedkey:
             return newpath
 
-        elif vdict[key] not in types.StringTypes:
+        elif vdict[key] not in str:
             if not vdict[key][1]:
                 continue
             rpath = fetchValuePathFromVDict(searchedkey,
@@ -58,7 +58,7 @@ def createSimpleVocabs(atvm, simpleVocabDictionary):
             ('fin', u'Finland'),
     )
     """
-    for vkey in simpleVocabDictionary.keys():
+    for vkey in list(simpleVocabDictionary.keys()):
         if isinstance(vkey, (list, tuple)):
             title = vkey[1]
             vocabname = vkey[0]
@@ -112,12 +112,12 @@ def createHierarchicalVocabs(atvm, hierarchicalVocabDictionary):
 
         newTerm = vocabulary[id]
 
-        for key, value in subDictionary.iteritems():
+        for key, value in subDictionary.items():
             createVocabularyTerms(newTerm, key[0], key[1], value)
 
         newTerm.reindexObject()
 
-    for vkey in hierarchicalVocabDictionary.keys():
+    for vkey in list(hierarchicalVocabDictionary.keys()):
         # create vocabulary if it doesn't exist:
         vocabname = vkey
 
@@ -131,7 +131,7 @@ def createHierarchicalVocabs(atvm, hierarchicalVocabDictionary):
         vocab = atvm[vocabname[0]]
         tree = hierarchicalVocabDictionary[vkey]
 
-        for (id, title), value in tree.iteritems():
+        for (id, title), value in tree.items():
             if not hasattr(vocab, id):
                 createVocabularyTerms(vocab, id, title, value)
         vocab.reindexObject()
@@ -147,7 +147,7 @@ def loadVdexVocabs(site, directory, files, remove=True):
                   'No valid VDEX import file provided at %s.' % vdexpath)
         try:
             data = open(vdexpath, 'r').read()
-        except Exception, e:
+        except Exception as e:
             raise ValueError('Problems while reading VDEX import file ' +\
                              'provided at %s\n%s\n.' % (vdexpath, str(e)))
         vdex = VDEXManager(data)

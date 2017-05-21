@@ -45,7 +45,7 @@ class TreeVocabularyTerm(TreeVocabulary, SimpleVocabularyTerm):
             default = '',
             size=50,
             widget = IdWidget(
-                label=_("label_key", default=u"Key"),
+                label=_("label_key", default="Key"),
                 description=_("help_vocab_name",
                               default="Should not contain spaces, underscores or mixed case."),
                 ),
@@ -57,7 +57,7 @@ class TreeVocabularyTerm(TreeVocabulary, SimpleVocabularyTerm):
             default = '',
             accessor = 'Title',
             widget = StringWidget(
-                label=_("label_value", default=u"Value"),
+                label=_("label_value", default="Value"),
             ),
         )),
     )

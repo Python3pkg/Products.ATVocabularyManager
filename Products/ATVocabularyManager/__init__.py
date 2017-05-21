@@ -26,9 +26,9 @@ DirectoryView.registerDirectory(os.path.join(SKINS_DIR, 'ATVocabularyManager'),
 
 def initialize(context):
     ##Import Types here to register them
-    import types
-    import tools
-    import utils
+    from . import types
+    from . import tools
+    from . import utils
 
     content_types, constructors, ftis = process_types(listTypes(PROJECTNAME),
                                                       PROJECTNAME)

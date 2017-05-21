@@ -24,7 +24,7 @@ from Products.ATVocabularyManager.interfaces import IMSVDEXVocabulary
 from Products.ATVocabularyManager.config import *
 from Products.ATVocabularyManager.config import PROJECTNAME
 from imsvdex.vdex import VDEXManager, VDEXError
-import HTMLParser
+import html.parser
 from Products.Archetypes import PloneMessageFactory as PMF
 
 from Products.ATContentTypes import ATCTMessageFactory as _
@@ -38,7 +38,7 @@ IMSVDEXVocabularySchema = Schema((
         default = '',
         accessor = 'Title',
         widget = StringWidget(
-            label=PMF(u'label_title', default=u'Title'),
+            label=PMF('label_title', default='Title'),
             visible = {'view': 'invisible', 'edit': 'invisible'},
         ),
     ),
@@ -50,8 +50,8 @@ IMSVDEXVocabularySchema = Schema((
         schemata = 'default',
         widget = TextAreaWidget(
             visible = {'view': 'visible', 'edit': 'invisible'},
-            label=PMF(u'label_description', default=u'Description'),
-            description=PMF(u'help_description', default=u'A short summary of the content'),
+            label=PMF('label_description', default='Description'),
+            description=PMF('help_description', default='A short summary of the content'),
         ),
     ),
 
@@ -59,9 +59,9 @@ IMSVDEXVocabularySchema = Schema((
         name = 'vdex',
         allowable_content_types = ["text/xml"],
         widget = FileWidget(
-            label=_(u'IMSVDEXVocabulary_label_vdex', default=u'VDEX-XML-Data'),
-            description=_(u'IMSVDEXVocabulary_description_vdex',
-                            default=u'upload the IMS Vocabulary Definition Format '
+            label=_('IMSVDEXVocabulary_label_vdex', default='VDEX-XML-Data'),
+            description=_('IMSVDEXVocabulary_description_vdex',
+                            default='upload the IMS Vocabulary Definition Format '
                             'compliant XML file into this text field.'),
             allow_file_upload = True,
         ),
@@ -72,7 +72,7 @@ IMSVDEXVocabularySchema = Schema((
         name = 'showTermPath',
         default = True,
         widget = BooleanWidget(
-            label=_(u'label_showTermPath', default=u'Show Term Path'),
+            label=_('label_showTermPath', default='Show Term Path'),
             visible = {'view': 'visible', 'edit': 'visible'},
         ),
     ),
@@ -80,7 +80,7 @@ IMSVDEXVocabularySchema = Schema((
         name = 'showLeafsOnly',
         default = True,
         widget = BooleanWidget(
-            label=_(u'label_showLeafsOnly', default=u'Show Leafs Only'),
+            label=_('label_showLeafsOnly', default='Show Leafs Only'),
             visible = {'view': 'visible', 'edit': 'visible'},
         ),
     ),
@@ -119,7 +119,7 @@ class IMSVDEXVocabulary(BaseContent):
         """
         dl = DisplayList()
         tree = self.getVocabularyDict(instance)
-        html = HTMLParser.HTMLParser()
+        html = html.parser.HTMLParser()
 
         def build_display_list(current, valueparent):
             for key in current:
@@ -202,7 +202,7 @@ class IMSVDEXVocabulary(BaseContent):
         lang = self._getLanguage()
         try:
             manager = VDEXManager(str(data), lang='en', fallback=True)
-        except VDEXError, e:
+        except VDEXError as e:
             if not returnerror:
                 return None
             return str(e)

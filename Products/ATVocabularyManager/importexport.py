@@ -15,7 +15,7 @@ from Products.GenericSetup.utils import XMLAdapterBase
 from Products.GenericSetup.utils import exportObjects
 from Products.GenericSetup.utils import importObjects
 from Products.CMFPlone.utils import normalizeString
-from interfaces import IATVocabularyLibrary
+from .interfaces import IATVocabularyLibrary
 
 
 class ATVMXMLAdapter(XMLAdapterBase):
@@ -44,7 +44,7 @@ class ATVMXMLAdapter(XMLAdapterBase):
                 # VDEX file
                 try:
                     vdex = VDEXManager(data)
-                except VDEXError, e:
+                except VDEXError as e:
                     self._logger.error('Problem with vdex-file: %s' % filepath)
                     raise
                 vocabid = vdex.getVocabIdentifier()
@@ -58,7 +58,7 @@ class ATVMXMLAdapter(XMLAdapterBase):
                         'Import VDEX file %s with identifier %s' % \
                         (filename, vocabname))
                     self.context.invokeFactory('VdexFileVocabulary', vocabname)
-                except BadRequest, e:
+                except BadRequest as e:
                     self._logger.warning(
                         'Import VDEX file %s with identifier %s renamed as %s' % \
                         (filename, vocabid, vocabname))

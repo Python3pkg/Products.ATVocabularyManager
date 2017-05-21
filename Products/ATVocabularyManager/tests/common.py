@@ -46,10 +46,10 @@ def createTestVocabulary(atvm, testvocabs=None):
     portal = api.portal.get()
     setRoles(portal, TEST_USER_ID, ['Manager'])
     testvocabs = {'teststates': (
-	('aut', u'Austria'),
-	('ger', u'Germany'),
-	('nor', u'Norway'),
-	('fin', u'Finland'))}
+	('aut', 'Austria'),
+	('ger', 'Germany'),
+	('nor', 'Norway'),
+	('fin', 'Finland'))}
 
     createSimpleVocabs(atvm, testvocabs)
 

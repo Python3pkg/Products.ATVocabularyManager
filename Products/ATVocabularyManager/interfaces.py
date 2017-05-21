@@ -42,7 +42,7 @@ class IKeywordEvent(interface.Interface):
     """An event concerning keywords.
     """
 
-    keyword = schema.TextLine(title=u'Keyword',
+    keyword = schema.TextLine(title='Keyword',
                               readonly=False,
                               required=True)
 
@@ -54,7 +54,7 @@ class IKeywordRenamedEvent(IKeywordEvent):
     """Keyword renamed event.
     """
 
-    new_keyword = schema.TextLine(title=u'New Keyword',
+    new_keyword = schema.TextLine(title='New Keyword',
                                   readonly=False,
                                   required=True)
 

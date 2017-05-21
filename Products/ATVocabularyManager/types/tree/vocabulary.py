@@ -32,9 +32,9 @@ schema = SimpleVocabulary.schema + Schema((
     BooleanField('ShowLeavesOnly',
         widget = BooleanWidget(
             label = _("label_show_leaves_only",
-                      default=u"Show leaves only"),
+                      default="Show leaves only"),
             description = _("help_show_leaves_only",
-                            default=u"Check to show only leaves in this vocabulary."),
+                            default="Check to show only leaves in this vocabulary."),
         ),
     ),
 ))
@@ -64,7 +64,7 @@ class TreeVocabulary(SimpleVocabulary):
                              display_parents='tree'):
         """ append subtree to flat display list
         """
-        for key in vdict.keys():
+        for key in list(vdict.keys()):
             if type(vdict[key]) == type((1, 2)):
                 value = vdict[key][0]
                 subdict = vdict[key][1] or None

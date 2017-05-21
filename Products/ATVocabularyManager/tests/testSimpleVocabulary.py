@@ -63,7 +63,7 @@ class TestSimpleVocabulary(ATVocTestCase):
         self.assertEqual(vocab['key2'], 'value2')
 
         # there must be an Value value3 with a uuid as key
-        for key in vocab.keys():
+        for key in list(vocab.keys()):
             if vocab[key] == 'value3':
                 self.failUnless(key != "")
 
@@ -82,7 +82,7 @@ class TestSimpleVocabulary(ATVocTestCase):
         svtest.importCSV(csvdata, titlerow=True)
         vocab = svtest.getVocabularyDict()
 
-        for key in vocab.keys():
+        for key in list(vocab.keys()):
             enKey = svtest[key].getTermKey()
             frKey = svtest[key].getTranslation('fr').getTermKey()
             self.assertEqual(enKey, frKey,
@@ -124,7 +124,7 @@ class TestSimpleVocabulary(ATVocTestCase):
         svtest.importCSV(csvdata, titlerow=False)
         vocab = svtest.getVocabularyDict()
 
-        for key in vocab.keys():
+        for key in list(vocab.keys()):
 
             # there should be no french translation
             self.assertEqual(svtest[key].getTranslation('fr'), None,
@@ -228,7 +228,7 @@ class TestSimpleVocabulary(ATVocTestCase):
     def _translateSimpleVocabulary(self):
         states = self.atvm.getVocabularyByName('teststates')
         states.setLanguage('en')
-        states.addTranslation('de', title=u'Länder')
+        states.addTranslation('de', title='Länder')
         states.aut.setLanguage('en')
         states.aut.addTranslation('de', title='Oesterreich')
         states.ger.setLanguage('en')
